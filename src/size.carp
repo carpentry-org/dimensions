@@ -1,0 +1,31 @@
+(doc Zero "
+  The type of things with zero size.")
+(deftype Zero)
+
+(doc Size "
+  The type of things with some fixed size.
+
+  Sizes larger than [Zero](#zero) are represented by nested applications of
+  Size.
+
+  For example, things of size 2 are typed: `(Size (Size Zero))`
+
+  Functions that rely on information about the size or length of a structure
+  are implemented in terms of `Size` and `Zero`.")
+(deftype (Size s))
+
+(defmodule Size
+  (hidden gen-size)
+  (defndynamic gen-size [n acc]
+    (if (or (< n 0) (= n 0))
+        acc
+        (Size.gen-size (- n 1) (cons-last acc '(Size)))))
+
+  (doc size "
+    Size types can be quite a pain to type out in full, as the rely on significant nesting.
+
+    The size macro generates an appropriate Size based on an integer value, and
+    may be used to generate a size type in functions signatures and macros.")
+  (defmacro size [n]
+    (Size.gen-size (- n 1) '(Size Zero)))
+)

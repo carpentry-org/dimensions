@@ -1,0 +1,56 @@
+(load "src/size.carp")
+
+(doc Bound "
+  The type of indicies over [Vectors](vector.html).
+  
+  Conceptually, these represent finite, bounded integers, where the bound is
+  given by a vector's length.
+
+  Much of the business-end of bounds checking is defined via overrides of
+  to-int, which give us projections from Bounds to ints that are guaranteed to be
+  safe.")
+(deftype (Bound z y) [])
+
+(defmodule Bound
+  (doc bound-overflow "
+    This prevents the use of ill-defined bounds. 
+
+    Unfortunately, there's no way for us to enforce that a bound's second type,
+    which is the value used as an index, is below the bound. Carp's type matching
+    is too specific to enable this--trying to do so at the type level only allows
+    one to define bounds that have an index value one value lesser than the bound
+    itself; i.e. Carp permits (Bound (Size (Size (Size Zero))) (Size (Size Zero))
+    but would fail to type match (Size Zero) in the second position, due to a
+    missing Size--this is unfortunate, but we can work around it through various
+    implementations of to-int
+
+    Since a Bound's first position is an upper bound, that value should never
+    become Zero while its second position is > than Zero (e.g. (Size Zero)).
+    If such a bound is constructed, it's ill-formed, thus we compute the
+    inverse of the normal to-int computation and subtract a point from the bound's
+    index--this has the effect of ensuring that even nonsensical bounds such as
+    (Bound (Size Zero) (Size (Size Zero))) that would normally result  in runtime
+    bounds exceptions always return the last element of a vector instead (denoted
+    by the bound's first position)")
+  (implements to-int bound-overflow)
+  (sig bound-overflow (Fn [(Bound Zero n)] Int))
+  (defn bound-overflow [b]
+    -1)
+
+  (doc bound-to-int "
+    Converts a bound to an integer, for Vector element access.")
+  (implements to-int bound-to-int)
+  (sig bound-to-int (Fn [(Bound (Size u) (Size n))] Int))
+  (defn bound-to-int [b]
+    (+ 1 (to-int (the (Bound u n) (Bound.init)))))
+  
+  (implements to-int bound-to-zero)
+  (sig bound-to-zero (Fn [(Bound (Size u) Zero)] Int))
+  (defn bound-to-zero [b]
+    0)
+)
+
+(doc bound "
+  Generates a Bound from two integers `n` and `x`.")
+(defmacro bound [n x]
+  (list 'the (list 'Bound (Size.gen-size n '(Zero)) (Size.gen-size x '(Zero))) '(Bound.init)))

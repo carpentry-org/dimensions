@@ -1,0 +1,150 @@
+
+(load "https://github.com/scolsen/typeclass@master")
+(load "src/bound.carp")
+
+(doc Vector "
+  Vector is an array-like type that supports length/bounds checking at
+  type-level. It also implements the [dimensional interfaces](dimensional.html)
+  and supports generic programming.")
+(deftype (Vector s a) [elements (Array a)])
+(private Vector.elements)
+
+(defmodule Vector
+  (doc push "
+    Adds an element to the end of a Vector, returning a new Vector.")
+  (sig push (Fn [a (Ref (Vector n a))] (Vector (Size n) a)))
+  (defn push [x v]
+    (Vector.init (Array.push-back @(Vector.elements v) x)))
+
+  (doc tail "
+    Returns all but the first element of a Vector as a new Vector.")
+  (sig tail (Fn [(Ref (Vector (Size n) a))] (Vector n a)))
+  (defn tail [v]
+    (Vector.init (Array.suffix (Vector.elements v) 1)))
+
+  (doc empty "
+    Returns an empty Vector")
+  (implements zero empty)
+  (sig empty (Fn [] (Vector Zero a)))
+  (defn empty []
+    (Vector.init []))
+
+  (doc to-array "
+    Converts a Vector to an Array.")
+  (sig to-array (Fn [(Ref (Vector n a))] (Array a)))
+  (defn to-array [v]
+    @(Vector.elements v))
+
+  (doc zip "
+    Combines two Vectors using a binary function `f`.")
+  (sig zip (Fn [(Ref (Fn [a b] c)) (Ref (Vector n a)) (Ref (Vector n b))] (Vector n c)))
+  (defn zip [f v v1]
+    (let [copy-then-apply (fn [a b] (~f @a @b))
+          arr (Vector.elements v)
+          arr1 (Vector.elements v1)]
+      (Vector.init (Array.zip &copy-then-apply arr arr1))))
+
+  (doc fmap "
+    Maps a function `f` over all the elements of a Vector and returns a new
+    Vector containing the results.")
+  (implements fmap fmap)
+  (defn fmap [f v]
+    (Vector.init (Array.endo-map f @(Vector.elements &v))))
+
+  (doc nth "
+    Retrieves the nth element of a Vector using a given `Bound`. 
+
+    The given `Bound` must have a `Size` equivalent to the `Vector`'s size in
+    its first position (the bound position).
+   
+    If the `Bound`'s index vlaue exceeds the length of the Vector, this
+    function will return the last element of the Vector.")
+  (sig nth (Fn [(Ref (Vector (Size n) a)) (Bound (Size n) z)] a))
+  (defn nth [v b]
+    @(Array.unsafe-nth (Vector.elements v) (to-int b)))
+
+  (doc last "
+    Returns the last element of a Vector.")
+  (sig last (Fn [(Ref (Vector (Size n) a))] a))
+  (defn last [v]
+    @(Array.unsafe-nth (Vector.elements v) (to-int (the (Bound (Size n) (Size n)) (Bound.init)))))
+
+  (doc head "
+    Returns the first element of a Vector.")
+  (sig head (Fn [(Ref (Vector (Size n) a))] a))
+  (defn head [v]
+    @(Array.unsafe-nth (Vector.elements v) (to-int (the (Bound (Size n) Zero) (Bound.init)))))
+
+  (hidden gen-vec)
+  (defndynamic gen-vec [vs acc]
+    (if (= 0 (length vs))
+        acc
+        (Vector.gen-vec (cdr vs) (cons-last (list 'Vector.push (car vs)) (cons-last '(ref) acc)))))
+
+  (doc of "
+    Creates a new Vector from the contents of an Array literal.")
+  (defmacro of [values]
+    (Vector.gen-vec values (list '==> '(Vector.empty))))
+
+  (implements positions positions)
+  (def positions )
+)
+
+(definterface replicate (Fn [a] (Vector n a)))
+;; TODO: Uncomment once Carp supports documenting interfaces.
+;(doc replicate "
+;  Initializes a new Vector of copies of `a`. 
+;
+;  The Vector's size is determined by the overarching context (or by a forced
+;  coercion via `the`).
+;
+;  For example:
+;
+;  ```clojure
+;  (Vector.zip &+ (Vector.of [1 2 3]) &(Vector.replicate 3))
+;  ;; => (Vector [4 5 6])
+;  ```")
+(definterface len (Fn [(Vector n a)] Int))
+;; TODO: Uncomment once Carp supports documenting interfaces.
+;(doc len "
+;  Returns the length of a Vector. This function is fully determined by the
+;  Vector's type.")
+(definterface empty? (Fn [(Vector n a)] Bool))
+;; TODO: Uncomment once Carp supports documenting interfaces.
+;(doc empty? "
+;  Returns true if this Vector is empty. This function is fully determined by
+;  the Vector's type.")
+
+(defmodule Zero
+  (implements replicate replicate)
+  (sig replicate (Fn [a] (Vector Zero a)))
+  (defn replicate [x]
+    (Vector.empty))
+
+  (implements len len)
+  (sig len (Fn [(Vector Zero a)] Int))
+  (defn len [v]
+    0)
+
+  (implements empty? empty?)
+  (sig empty? (Fn [(Vector Zero a)] Bool))
+  (defn empty? [v]
+    true)
+)
+
+(defmodule Size
+  (implements replicate replicate)
+  (sig replicate (Fn [a] (Vector (Size n) a)))
+  (defn replicate [x]
+    (Vector.push x &(replicate x)))
+  
+  (implements len len)
+  (sig len (Fn [(Vector (Size n) a)] Int))
+  (defn len [v]
+    (+ 1 (len (Vector.tail &v))))
+
+  (implements empty? empty?)
+  (sig empty? (Fn [(Vector (Size n) a)] Bool))
+  (defn empty? [v]
+    false)
+)
