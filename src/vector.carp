@@ -7,7 +7,14 @@
   type-level. It also implements the [dimensional interfaces](dimensional.html)
   and supports generic programming.")
 (deftype (Vector s a) [elements (Array a)])
+(hidden Vector.elements)
 (private Vector.elements)
+(hidden Vector.set-elements)
+(private Vector.set-elements)
+(hidden Vector.set-elements!)
+(private Vector.set-elements!)
+(hidden Vector.update-elements)
+(private Vector.update-elements)
 
 (defmodule Vector
   (doc push "
@@ -85,9 +92,6 @@
     Creates a new Vector from the contents of an Array literal.")
   (defmacro of [values]
     (Vector.gen-vec values (list '==> '(Vector.empty))))
-
-  (implements positions positions)
-  (def positions )
 )
 
 (definterface replicate (Fn [a] (Vector n a)))
