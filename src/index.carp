@@ -1,0 +1,25 @@
+(load "src/size.carp")
+(load "Phantom.carp")
+
+(doc Index "
+  The type of integer indicies.
+
+  This type can be used to define generic lookup functions over sized functors
+  (Functors with a phantom [Size](size.html) type argument.)")
+(deftype (Index (f (Size n) Opaque) Int) [at Int])
+
+(defmodule Index
+  (doc index-to-int "
+    Converts an index to a safe integer value, for sized functor element access.
+
+    The integer value will always be lesser than the `Size` encoded in the `Index`.")
+  (implements to-int index-to-int)
+  (sig index-to-int (Fn [(Ref (Index (f (Size m) Opaque) Int))] Int))
+  (defn index-to-int [ix]
+    (let [bound (to-int (the (Phantom m) (Phantom.init)))
+          value @(Index.at ix)]
+      (if (< bound value)
+          bound
+          value)))
+)
+
