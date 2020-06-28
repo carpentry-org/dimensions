@@ -17,7 +17,7 @@
 (private Vector.update-elements)
 
 ;; TODO: Document these interfaces once Carp supports it.
-(definterface len (Fn [(Vector n a)] Int))
+(definterface len (Fn [(Ref (Vector n a))] Int))
 (definterface replicate (Fn [a] (Vector n a)))
 (definterface empty? (Fn [(Vector n a)] Bool))
 
@@ -99,7 +99,7 @@
     (Vector.empty))
 
   (implements len len)
-  (sig len (Fn [(Vector Zero a)] Int))
+  (sig len (Fn [(Ref (Vector Zero a))] Int))
   (defn len [v]
     0)
 
@@ -116,9 +116,9 @@
     (Vector.push x &(replicate x)))
 
   (implements len len)
-  (sig len (Fn [(Vector (Size n) a)] Int))
+  (sig len (Fn [(Ref (Vector (Size n) a))] Int))
   (defn len [v]
-    (+ 1 (len (Vector.tail &v))))
+    (+ 1 (len &(Vector.tail v))))
 
   (implements empty? empty?)
   (sig empty? (Fn [(Vector (Size n) a)] Bool))

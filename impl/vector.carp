@@ -2,7 +2,7 @@
 (load "src/vector.carp")
 
 (defmodule Vector
-  (sig iota (Fn [(Vector (Size n) a)] (Vector (Size n) (Index (Vector (Size n) Opaque) Int))))
+  (sig iota (Fn [(Ref (Vector (Size n) a))] (Vector (Size n) (Index (Vector (Size n) Opaque) Int))))
   (defn iota [v]
     (let-do [i (len v)
              res (Array.allocate i)]
@@ -12,7 +12,7 @@
 
   (implements positions positions)
   (sig positions (Fn [] (Vector (Size n) (Index (Vector (Size n) Opaque) Int))))
-  (defn positions [] (iota (replicate 0)))
+  (defn positions [] (iota &(replicate 0)))
 
   (implements lookup lookup)
   (sig lookup (Fn [(Vector (Size n) a)] (Fn [(Index (Vector (Size m) Opaque) Int)] a)))
@@ -26,7 +26,7 @@
    (implements smap map)
    (sig map (Fn [(Ref (Fn [a] b)) (Ref (Vector (Size n) a))] (Vector (Size n) b)))
    (defn map [f v]
-     (let-do [ i (len @v)
+     (let-do [ i (len v)
                res (Array.allocate i)
                xs (Vector.elements v)]
        (for  [m 0 i]
