@@ -1,3 +1,5 @@
+(load "Phantom.carp")
+
 (doc Zero "
   The type of things with zero size.")
 (deftype Zero)
@@ -28,4 +30,16 @@
     may be used to generate a size type in functions signatures and macros.")
   (defmacro size [n]
     (Size.gen-size (- n 1) '(Size Zero)))
+)
+
+(defmodule Phantom
+  (sig phantom-size (Fn [(Phantom (Size n))] Int))
+  (implements to-int phantom-size)
+  (defn phantom-size [p]
+    (+ 1 (to-int (the (Phantom n) (Phantom.init)))))
+
+  (sig phantom-zero (Fn [(Phantom Zero)] Int))
+  (implements to-int phantom-zero)
+  (defn phantom-zero [b]
+    0)
 )

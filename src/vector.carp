@@ -1,6 +1,6 @@
 
-(load "https://github.com/scolsen/typeclass@master")
-(load "src/bound.carp")
+(load "src/index.carp")
+(load "Phantom.carp")
 
 (doc Vector "
   Vector is an array-like type that supports length/bounds checking at
@@ -15,6 +15,11 @@
 (private Vector.set-elements!)
 (hidden Vector.update-elements)
 (private Vector.update-elements)
+
+;; TODO: Document these interfaces once Carp supports it.
+(definterface len (Fn [(Vector n a)] Int))
+(definterface replicate (Fn [a] (Vector n a)))
+(definterface empty? (Fn [(Vector n a)] Bool))
 
 (defmodule Vector
   (doc push "
@@ -51,36 +56,29 @@
           arr1 (Vector.elements v1)]
       (Vector.init (Array.zip &copy-then-apply arr arr1))))
 
-  (doc fmap "
-    Maps a function `f` over all the elements of a Vector and returns a new
-    Vector containing the results.")
-  (implements fmap fmap)
-  (defn fmap [f v]
-    (Vector.init (Array.endo-map f @(Vector.elements &v))))
-
   (doc nth "
-    Retrieves the nth element of a Vector using a given `Bound`. 
+    Retrieves the nth element of a Vector using a given `Index`.
 
-    The given `Bound` must have a `Size` equivalent to the `Vector`'s size in
+    The given `Index` must have a `Size` equivalent to the `Vector`'s size in
     its first position (the bound position).
-   
-    If the `Bound`'s index vlaue exceeds the length of the Vector, this
+
+    If the `Index`'s Int value exceeds the length of the Vector, this
     function will return the last element of the Vector.")
-  (sig nth (Fn [(Ref (Vector (Size n) a)) (Bound (Size n) z)] a))
-  (defn nth [v b]
-    @(Array.unsafe-nth (Vector.elements v) (to-int b)))
+  (sig nth (Fn [(Ref (Vector (Size n) a)) (Index (Vector (Size n) Opaque) Int)] a))
+  (defn nth [v ix]
+    @(Array.unsafe-nth (Vector.elements v) (to-int &ix)))
 
   (doc last "
     Returns the last element of a Vector.")
   (sig last (Fn [(Ref (Vector (Size n) a))] a))
   (defn last [v]
-    @(Array.unsafe-nth (Vector.elements v) (to-int (the (Bound (Size n) (Size n)) (Bound.init)))))
+    @(Array.unsafe-nth (Vector.elements v) (to-int (the (Phantom n) (Phantom.init)))))
 
   (doc head "
     Returns the first element of a Vector.")
   (sig head (Fn [(Ref (Vector (Size n) a))] a))
   (defn head [v]
-    @(Array.unsafe-nth (Vector.elements v) (to-int (the (Bound (Size n) Zero) (Bound.init)))))
+    @(Array.unsafe-nth (Vector.elements v) (to-int (the (Phantom Zero) (Phantom.init)))))
 
   (hidden gen-vec)
   (defndynamic gen-vec [vs acc]
@@ -93,31 +91,6 @@
   (defmacro of [values]
     (Vector.gen-vec values (list '==> '(Vector.empty))))
 )
-
-(definterface replicate (Fn [a] (Vector n a)))
-;; TODO: Uncomment once Carp supports documenting interfaces.
-;(doc replicate "
-;  Initializes a new Vector of copies of `a`. 
-;
-;  The Vector's size is determined by the overarching context (or by a forced
-;  coercion via `the`).
-;
-;  For example:
-;
-;  ```clojure
-;  (Vector.zip &+ (Vector.of [1 2 3]) &(Vector.replicate 3))
-;  ;; => (Vector [4 5 6])
-;  ```")
-(definterface len (Fn [(Vector n a)] Int))
-;; TODO: Uncomment once Carp supports documenting interfaces.
-;(doc len "
-;  Returns the length of a Vector. This function is fully determined by the
-;  Vector's type.")
-(definterface empty? (Fn [(Vector n a)] Bool))
-;; TODO: Uncomment once Carp supports documenting interfaces.
-;(doc empty? "
-;  Returns true if this Vector is empty. This function is fully determined by
-;  the Vector's type.")
 
 (defmodule Zero
   (implements replicate replicate)
@@ -141,7 +114,7 @@
   (sig replicate (Fn [a] (Vector (Size n) a)))
   (defn replicate [x]
     (Vector.push x &(replicate x)))
-  
+
   (implements len len)
   (sig len (Fn [(Vector (Size n) a)] Int))
   (defn len [v]

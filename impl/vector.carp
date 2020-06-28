@@ -1,0 +1,35 @@
+(load "src/dimensional.carp")
+(load "src/vector.carp")
+
+(defmodule Vector
+  (sig iota (Fn [(Vector (Size n) a)] (Vector (Size n) (Index (Vector (Size n) Opaque) Int))))
+  (defn iota [v]
+    (let-do [i (len v)
+             res (Array.allocate i)]
+      (for  [m 0 i]
+        (do (Array.aset-uninitialized! &res m m)))
+      (smap &Index.init &(Vector.init res))))
+
+  (implements positions positions)
+  (sig positions (Fn [] (Vector (Size n) (Index (Vector (Size n) Opaque) Int))))
+  (defn positions [] (iota (replicate 0)))
+
+  (implements lookup lookup)
+  (sig lookup (Fn [(Vector (Size n) a)] (Fn [(Index (Vector (Size m) Opaque) Int)] a)))
+  (defn lookup [v]
+    (fn [i]
+      (Vector.nth &v i)))
+
+   (doc map "
+     Maps a function `f` over all the elements of a Vector and returns a new
+     Vector containing the results.")
+   (implements smap map)
+   (sig map (Fn [(Ref (Fn [a] b)) (Ref (Vector (Size n) a))] (Vector (Size n) b)))
+   (defn map [f v]
+     (let-do [ i (len @v)
+               res (Array.allocate i)
+               xs (Vector.elements v)]
+       (for  [m 0 i]
+         (do (Array.aset-uninitialized! &res m (~f @(Array.unsafe-nth xs m)))))
+     (Vector.init res)))
+)
