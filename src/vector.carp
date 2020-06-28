@@ -89,7 +89,19 @@
   (doc of "
     Creates a new Vector from the contents of an Array literal.")
   (defmacro of [values]
-    (Vector.gen-vec values (list '==> '(Vector.empty))))
+    (if (= 0 (length values))
+        (list 'Vector.empty)
+        (Vector.gen-vec values (list '==> '(Vector.empty)))))
+
+  (implements = =)
+  (sig = (Fn [(Vector s a) (Vector s a)] Bool))
+  (defn = [vector-a vector-b]
+    (= &vector-a &vector-b))
+
+  (implements = ref-eq)
+  (sig ref-eq (Fn [(Ref (Vector s a)) (Ref (Vector s a))] Bool))
+  (defn ref-eq [vector-a vector-b]
+    (= (Vector.elements vector-a) (Vector.elements vector-b)))
 )
 
 (defmodule Zero

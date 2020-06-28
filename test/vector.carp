@@ -1,0 +1,61 @@
+(load "src/vector.carp")
+(load "impl/vector.carp")
+(load "Test.carp")
+
+(use-all Vector Test)
+
+(deftest test
+  (assert-equal test
+    &(Vector.of [1 2 3])
+    &(the (Vector (Size.size 3) Int) (Vector.init [1 2 3]))
+    "of returns a Vector of an appropriate size from an Array literal")
+  (assert-equal test
+    &(push 3 &(Vector.of [1 2]))
+    &(Vector.of [1 2 3])
+    "push adds an elements to the end of a Vector, increasing its Size by one")
+  (assert-equal test
+    &(Vector.of [2 3])
+    &(tail &(Vector.of [1 2 3]))
+    "tail returns the all but the first element of the vector")
+  (assert-equal test 
+    &(the (Vector Zero Int) (Vector.empty))
+    &(the (Vector Zero Int) (Vector.of []))
+    "empty returns an empty Vector")
+  (assert-equal test
+    &[1 2 3]
+    &(to-array &(Vector.of [1 2 3]))
+    "to-array returns an array containing the elements of a Vector")
+  (assert-equal test
+    2 
+    (nth &(Vector.of [1 2 3]) (Index.init 1))
+    "nth returns the element of a Vector at a given index")
+  (assert-equal test
+    3 
+    (nth &(Vector.of [1 2 3]) (Index.init 100))
+    "nth returns the last element of a Vector if an index exceeds the Vector's
+    length")
+  (assert-equal test
+    3
+    (last &(Vector.of [1 2 3]))
+    "last returns the last element of a Vector")
+  (assert-equal test
+    1
+    (head &(Vector.of [1 2 3]))
+    "head returns the first element of a Vector")
+  (assert-equal test
+    &(Vector.of [2 2 2])
+    &(zip &+ &(Vector.of [1 1 1]) &(Vector.of [1 1 1]))
+    "zip combines the elements of two Vectors using a binary function")
+  (assert-equal test
+    &(Vector.of [2 2 2])
+    &(zip &+ &(Vector.of [1 1 1]) &(replicate 1))
+    "replicate fills a Vector of equivalent size with a value")
+  (assert-equal test
+    3
+    (len &(Vector.of [1 2 3]))
+    "len returns the length of a Vector")
+  (assert-equal test
+    true
+    (empty? &(the (Vector Zero Int) (Vector.empty)))
+    "empty? returns true if a Vector is empty")
+)
