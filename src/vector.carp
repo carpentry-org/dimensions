@@ -19,7 +19,7 @@
 ;; TODO: Document these interfaces once Carp supports it.
 (definterface len (Fn [(Ref (Vector n a))] Int))
 (definterface replicate (Fn [a] (Vector n a)))
-(definterface empty? (Fn [(Vector n a)] Bool))
+(definterface empty? (Fn [(Ref (Vector n a))] Bool))
 
 (defmodule Vector
   (doc push "
@@ -104,7 +104,7 @@
     0)
 
   (implements empty? empty?)
-  (sig empty? (Fn [(Vector Zero a)] Bool))
+  (sig empty? (Fn [(Ref (Vector Zero a))] Bool))
   (defn empty? [v]
     true)
 )
@@ -121,7 +121,7 @@
     (+ 1 (len &(Vector.tail v))))
 
   (implements empty? empty?)
-  (sig empty? (Fn [(Vector (Size n) a)] Bool))
+  (sig empty? (Fn [(Ref (Vector (Size n) a))] Bool))
   (defn empty? [v]
     false)
 )
