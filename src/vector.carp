@@ -17,9 +17,9 @@
 (private Vector.update-elements)
 
 ;; TODO: Document these interfaces once Carp supports it.
-(definterface len (Fn [(Vector n a)] Int))
+(definterface len (Fn [(Ref (Vector n a))] Int))
 (definterface replicate (Fn [a] (Vector n a)))
-(definterface empty? (Fn [(Vector n a)] Bool))
+(definterface empty? (Fn [(Ref (Vector n a))] Bool))
 
 (defmodule Vector
   (doc push "
@@ -89,7 +89,19 @@
   (doc of "
     Creates a new Vector from the contents of an Array literal.")
   (defmacro of [values]
-    (Vector.gen-vec values (list '==> '(Vector.empty))))
+    (if (= 0 (length values))
+        (list 'Vector.empty)
+        (Vector.gen-vec values (list '==> '(Vector.empty)))))
+
+  (implements = =)
+  (sig = (Fn [(Vector s a) (Vector s a)] Bool))
+  (defn = [vector-a vector-b]
+    (= &vector-a &vector-b))
+
+  (implements = ref-eq)
+  (sig ref-eq (Fn [(Ref (Vector s a)) (Ref (Vector s a))] Bool))
+  (defn ref-eq [vector-a vector-b]
+    (= (Vector.elements vector-a) (Vector.elements vector-b)))
 )
 
 (defmodule Zero
@@ -99,12 +111,12 @@
     (Vector.empty))
 
   (implements len len)
-  (sig len (Fn [(Vector Zero a)] Int))
+  (sig len (Fn [(Ref (Vector Zero a))] Int))
   (defn len [v]
     0)
 
   (implements empty? empty?)
-  (sig empty? (Fn [(Vector Zero a)] Bool))
+  (sig empty? (Fn [(Ref (Vector Zero a))] Bool))
   (defn empty? [v]
     true)
 )
@@ -116,12 +128,12 @@
     (Vector.push x &(replicate x)))
 
   (implements len len)
-  (sig len (Fn [(Vector (Size n) a)] Int))
+  (sig len (Fn [(Ref (Vector (Size n) a))] Int))
   (defn len [v]
-    (+ 1 (len (Vector.tail &v))))
+    (+ 1 (len &(Vector.tail v))))
 
   (implements empty? empty?)
-  (sig empty? (Fn [(Vector (Size n) a)] Bool))
+  (sig empty? (Fn [(Ref (Vector (Size n) a))] Bool))
   (defn empty? [v]
     false)
 )
