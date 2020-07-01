@@ -46,16 +46,33 @@
                 </div>
             </div>
             <h1>
-                Size
+                Index
             </h1>
             <div class="module-description">
-                <p>The type of things with some fixed size.</p>
-<p>Sizes larger than <a href="#zero">Zero</a> are represented by nested applications of
-Size.</p>
-<p>For example, things of size 2 are typed: <code>(Size (Size Zero))</code></p>
-<p>Functions that rely on information about the size or length of a structure
-are implemented in terms of <code>Size</code> and <code>Zero</code>.</p>
+                <p>The type of integer indicies.</p>
+<p>This type can be used to define generic lookup functions over sized functors
+(Functors with a phantom <a href="size.html">Size</a> type argument.)</p>
 
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#at">
+                    <h3 id="at">
+                        at
+                    </h3>
+                </a>
+                <div class="description">
+                    instantiate
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Index (a (Size b) Opaque) Int) c)] (Ref Int c))
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>gets the <code>at</code> property of a <code>Index</code>.</p>
+
+                </p>
             </div>
             <div class="binder">
                 <a class="anchor" href="#copy">
@@ -67,13 +84,13 @@ are implemented in terms of <code>Size</code> and <code>Zero</code>.</p>
                     template
                 </div>
                 <p class="sig">
-                    (Fn [(Ref (Size a) b)] (Size a))
+                    (Fn [(Ref (Index (a (Size b) Opaque) Int) c)] (Index (a (Size b) Opaque) Int))
                 </p>
                 <span>
                     
                 </span>
                 <p class="doc">
-                    <p>copies a <code>(Size s)</code>.</p>
+                    <p>copies the <code>Index</code>.</p>
 
                 </p>
             </div>
@@ -87,72 +104,57 @@ are implemented in terms of <code>Size</code> and <code>Zero</code>.</p>
                     template
                 </div>
                 <p class="sig">
-                    (Fn [(Size a)] ())
+                    (Fn [(Index (a (Size b) Opaque) Int)] ())
                 </p>
                 <span>
                     
                 </span>
                 <p class="doc">
-                    <p>deletes a <code>(Size s)</code>. Should usually not be called manually.</p>
+                    <p>deletes a <code>Index</code>. Should usually not be called manually.</p>
 
                 </p>
             </div>
             <div class="binder">
-                <a class="anchor" href="#empty?">
-                    <h3 id="empty?">
-                        empty?
+                <a class="anchor" href="#index-to-int">
+                    <h3 id="index-to-int">
+                        index-to-int
                     </h3>
                 </a>
                 <div class="description">
                     defn
                 </div>
                 <p class="sig">
-                    (Fn [(Ref (Vector (Size a) b) c)] Bool)
+                    (Fn [(Ref (Index (a (Size b) Opaque) Int) c)] Int)
                 </p>
                 <pre class="args">
-                    (empty? v)
+                    (index-to-int ix)
                 </pre>
                 <p class="doc">
-                    
+                    <pre><code>Converts an index to a safe integer value, for sized functor element access.
+
+The integer value will always be lesser than the `Size` encoded in the `Index`.
+</code></pre>
+
                 </p>
             </div>
             <div class="binder">
-                <a class="anchor" href="#get-tag">
-                    <h3 id="get-tag">
-                        get-tag
+                <a class="anchor" href="#init">
+                    <h3 id="init">
+                        init
                     </h3>
                 </a>
                 <div class="description">
-                    instantiate
+                    template
                 </div>
                 <p class="sig">
-                    (Fn [(Ref (Size a) b)] Int)
+                    (Fn [Int] (Index (a (Size b) Opaque) Int))
                 </p>
                 <span>
                     
                 </span>
                 <p class="doc">
-                    <p>Gets the tag from a <code>Size</code>.</p>
+                    <p>creates a <code>Index</code>.</p>
 
-                </p>
-            </div>
-            <div class="binder">
-                <a class="anchor" href="#len">
-                    <h3 id="len">
-                        len
-                    </h3>
-                </a>
-                <div class="description">
-                    defn
-                </div>
-                <p class="sig">
-                    (Fn [(Ref (Vector (Size a) b) c)] Int)
-                </p>
-                <pre class="args">
-                    (len v)
-                </pre>
-                <p class="doc">
-                    
                 </p>
             </div>
             <div class="binder">
@@ -165,56 +167,53 @@ are implemented in terms of <code>Size</code> and <code>Zero</code>.</p>
                     template
                 </div>
                 <p class="sig">
-                    (Fn [(Ref (Size a) b)] String)
+                    (Fn [(Ref (Index (a (Size b) Opaque) Int) c)] String)
                 </p>
                 <span>
                     
                 </span>
                 <p class="doc">
-                    <p>stringifies a <code>&quot;Size&quot;</code>.</p>
+                    <p>converts a <code>Index</code> to a string.</p>
 
                 </p>
             </div>
             <div class="binder">
-                <a class="anchor" href="#replicate">
-                    <h3 id="replicate">
-                        replicate
+                <a class="anchor" href="#set-at">
+                    <h3 id="set-at">
+                        set-at
                     </h3>
                 </a>
                 <div class="description">
-                    defn
+                    instantiate
                 </div>
                 <p class="sig">
-                    (Fn [a] (Vector (Size b) a))
+                    (Fn [(Index (a (Size b) Opaque) Int), Int] (Index (a (Size b) Opaque) Int))
                 </p>
-                <pre class="args">
-                    (replicate x)
-                </pre>
-                <p class="doc">
+                <span>
                     
+                </span>
+                <p class="doc">
+                    <p>sets the <code>at</code> property of a <code>Index</code>.</p>
+
                 </p>
             </div>
             <div class="binder">
-                <a class="anchor" href="#size">
-                    <h3 id="size">
-                        size
+                <a class="anchor" href="#set-at!">
+                    <h3 id="set-at!">
+                        set-at!
                     </h3>
                 </a>
                 <div class="description">
-                    macro
+                    instantiate
                 </div>
                 <p class="sig">
-                    Macro
+                    (Fn [(Ref (Index (a (Size b) Opaque) Int) c), Int] ())
                 </p>
-                <pre class="args">
-                    (size n)
-                </pre>
+                <span>
+                    
+                </span>
                 <p class="doc">
-                    <pre><code>Size types can be quite a pain to type out in full, as the rely on significant nesting.
-
-The size macro generates an appropriate Size based on an integer value, and
-may be used to generate a size type in functions signatures and macros.
-</code></pre>
+                    <p>sets the <code>at</code> property of a <code>Index</code> in place.</p>
 
                 </p>
             </div>
@@ -228,13 +227,33 @@ may be used to generate a size type in functions signatures and macros.
                     template
                 </div>
                 <p class="sig">
-                    (Fn [(Ref (Size a) b)] String)
+                    (Fn [(Ref (Index (a (Size b) Opaque) Int) c)] String)
                 </p>
                 <span>
                     
                 </span>
                 <p class="doc">
-                    <p>stringifies a <code>&quot;Size&quot;</code>.</p>
+                    <p>converts a <code>Index</code> to a string.</p>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#update-at">
+                    <h3 id="update-at">
+                        update-at
+                    </h3>
+                </a>
+                <div class="description">
+                    instantiate
+                </div>
+                <p class="sig">
+                    (Fn [(Index (a (Size b) Opaque) Int), (Ref (Fn [Int] Int c) d)] (Index (a (Size b) Opaque) Int))
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>updates the <code>at</code> property of a <code>Index</code> using a function <code>f</code>.</p>
 
                 </p>
             </div>
