@@ -14,5 +14,5 @@
 (Project.config "docs-generate-index" true)
 (Project.config "docs-logo" "dimensions-logo.svg")
 
-(save-docs Index Size Vector Dimensional)
+(save-docs Index Zero Size Vector Dimensional)
 (quit)
