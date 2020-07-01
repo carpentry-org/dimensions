@@ -6,18 +6,18 @@
 (definterface positions (Fn [] (f (Size n) (Index (f (Size n) Opaque) Int))))
 (definterface smap (Fn [(Ref (Fn [a] b)) (Ref (f s a))] (f s b)))
 
-(doc tabulate "
-  Tabulate maps a `lookup` function (any function that takes an `Index` as an
-  argument) over the positions of a sized functor.
-
-  `(tabulate (lookup f))= (id f)`
-
-  To make this function useful, one often needs to use an overarching context
-  to ensure the resulting functor is sized appropriately. ")
-(defn tabulate [f]
-  (smap f &(positions)))
-
 (defmodule Dimensional
+  (doc tabulate "
+    Tabulate maps a `lookup` function (any function that takes an `Index` as an
+    argument) over the positions of a sized functor.
+
+    `(tabulate (lookup f))= (id f)`
+
+    To make this function useful, one often needs to use an overarching context
+    to ensure the resulting functor is sized appropriately. ")
+  (defn tabulate [f]
+    (smap f &(positions)))
+
   (doc transpose "
     Transpose takes a sized functor whose inhabitants are sized functors and
     effectively swaps their sizes; it is equivalent to matrix transposition.
