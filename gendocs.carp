@@ -1,0 +1,18 @@
+;; Generate documentation for the Dimensions library
+
+(load "dimensions.carp")
+
+(Project.config "title" "dimensions")
+(Project.config "docs-directory" "docs/")
+(Project.config "docs-styling" "docs.css")
+(Project.config "docs-url" "https://github.com/carpentry-org/dimensions")
+(Project.config "docs-prelude" 
+  "The dimensions library defines types and functions for working with *sized
+  containers*. A sized container contains its size as part of its type
+  signature, much as one might encounter in dependently typed programming
+  langauges.")
+(Project.config "docs-generate-index" true)
+(Project.config "docs-logo" "dimensions-logo.svg")
+
+(save-docs Index Size Vector Dimensional)
+(quit)

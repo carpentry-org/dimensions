@@ -1,0 +1,257 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <link rel="stylesheet" href="docs.css">
+    </head>
+    <body>
+        <div class="content">
+            <div class="logo">
+                <a href="http://github.com/carp-lang/Carp">
+                    <img src="logo.png">
+                </a>
+                <div class="title">
+                    dimensions
+                </div>
+                <div class="index">
+                    <ul>
+                        <li>
+                            <a href="Index.html">
+                                Index
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Size.html">
+                                Size
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Vector.html">
+                                Vector
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Dimensional.html">
+                                Dimensional
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <h1>
+                Index
+            </h1>
+            <div class="module-description">
+                <p>The type of integer indicies.</p>
+<p>This type can be used to define generic lookup functions over sized functors
+(Functors with a phantom <a href="size.html">Size</a> type argument.)</p>
+
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#at">
+                    <h3 id="at">
+                        at
+                    </h3>
+                </a>
+                <div class="description">
+                    instantiate
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Index (a (Size b) Opaque) Int) c)] (Ref Int c))
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>gets the <code>at</code> property of a <code>Index</code>.</p>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#copy">
+                    <h3 id="copy">
+                        copy
+                    </h3>
+                </a>
+                <div class="description">
+                    template
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Index (a (Size b) Opaque) Int) c)] (Index (a (Size b) Opaque) Int))
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>copies the <code>Index</code>.</p>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#delete">
+                    <h3 id="delete">
+                        delete
+                    </h3>
+                </a>
+                <div class="description">
+                    template
+                </div>
+                <p class="sig">
+                    (Fn [(Index (a (Size b) Opaque) Int)] ())
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>deletes a <code>Index</code>. Should usually not be called manually.</p>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#index-to-int">
+                    <h3 id="index-to-int">
+                        index-to-int
+                    </h3>
+                </a>
+                <div class="description">
+                    defn
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Index (a (Size b) Opaque) Int) c)] Int)
+                </p>
+                <pre class="args">
+                    (index-to-int ix)
+                </pre>
+                <p class="doc">
+                    <pre><code>Converts an index to a safe integer value, for sized functor element access.
+
+The integer value will always be lesser than the `Size` encoded in the `Index`.
+</code></pre>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#init">
+                    <h3 id="init">
+                        init
+                    </h3>
+                </a>
+                <div class="description">
+                    template
+                </div>
+                <p class="sig">
+                    (Fn [Int] (Index (a (Size b) Opaque) Int))
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>creates a <code>Index</code>.</p>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#prn">
+                    <h3 id="prn">
+                        prn
+                    </h3>
+                </a>
+                <div class="description">
+                    template
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Index (a (Size b) Opaque) Int) c)] String)
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>converts a <code>Index</code> to a string.</p>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#set-at">
+                    <h3 id="set-at">
+                        set-at
+                    </h3>
+                </a>
+                <div class="description">
+                    instantiate
+                </div>
+                <p class="sig">
+                    (Fn [(Index (a (Size b) Opaque) Int), Int] (Index (a (Size b) Opaque) Int))
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>sets the <code>at</code> property of a <code>Index</code>.</p>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#set-at!">
+                    <h3 id="set-at!">
+                        set-at!
+                    </h3>
+                </a>
+                <div class="description">
+                    instantiate
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Index (a (Size b) Opaque) Int) c), Int] ())
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>sets the <code>at</code> property of a <code>Index</code> in place.</p>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#str">
+                    <h3 id="str">
+                        str
+                    </h3>
+                </a>
+                <div class="description">
+                    template
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Index (a (Size b) Opaque) Int) c)] String)
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>converts a <code>Index</code> to a string.</p>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#update-at">
+                    <h3 id="update-at">
+                        update-at
+                    </h3>
+                </a>
+                <div class="description">
+                    instantiate
+                </div>
+                <p class="sig">
+                    (Fn [(Index (a (Size b) Opaque) Int), (Ref (Fn [Int] Int c) d)] (Index (a (Size b) Opaque) Int))
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>updates the <code>at</code> property of a <code>Index</code> using a function <code>f</code>.</p>
+
+                </p>
+            </div>
+        </div>
+    </body>
+</html>
