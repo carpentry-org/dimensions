@@ -1,0 +1,466 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <link rel="stylesheet" href="docs.css">
+    </head>
+    <body>
+        <div class="content">
+            <div class="logo">
+                <a href="http://github.com/carp-lang/Carp">
+                    <img src="logo.png">
+                </a>
+                <div class="title">
+                    dimensions
+                </div>
+                <div class="index">
+                    <ul>
+                        <li>
+                            <a href="Index.html">
+                                Index
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Size.html">
+                                Size
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Vector.html">
+                                Vector
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Dimensional.html">
+                                Dimensional
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <h1>
+                Vector
+            </h1>
+            <div class="module-description">
+                <p>Vector is an array-like type that supports length/bounds checking at
+type-level. It also implements the <a href="dimensional.html">dimensional interfaces</a>
+and supports generic programming.</p>
+
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#=">
+                    <h3 id="=">
+                        =
+                    </h3>
+                </a>
+                <div class="description">
+                    defn
+                </div>
+                <p class="sig">
+                    (Fn [(Vector a b), (Vector a b)] Bool)
+                </p>
+                <pre class="args">
+                    (= vector-a vector-b)
+                </pre>
+                <p class="doc">
+                    
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#copy">
+                    <h3 id="copy">
+                        copy
+                    </h3>
+                </a>
+                <div class="description">
+                    template
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Vector a b) c)] (Vector a b))
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>copies the <code>Vector</code>.</p>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#delete">
+                    <h3 id="delete">
+                        delete
+                    </h3>
+                </a>
+                <div class="description">
+                    template
+                </div>
+                <p class="sig">
+                    (Fn [(Vector a b)] ())
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>deletes a <code>Vector</code>. Should usually not be called manually.</p>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#empty">
+                    <h3 id="empty">
+                        empty
+                    </h3>
+                </a>
+                <div class="description">
+                    defn
+                </div>
+                <p class="sig">
+                    (Fn [] (Vector Zero a))
+                </p>
+                <pre class="args">
+                    (empty)
+                </pre>
+                <p class="doc">
+                    <pre><code>Returns an empty Vector
+</code></pre>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#head">
+                    <h3 id="head">
+                        head
+                    </h3>
+                </a>
+                <div class="description">
+                    defn
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Vector (Size a) b) c)] b)
+                </p>
+                <pre class="args">
+                    (head v)
+                </pre>
+                <p class="doc">
+                    <pre><code>Returns the first element of a Vector.
+</code></pre>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#init">
+                    <h3 id="init">
+                        init
+                    </h3>
+                </a>
+                <div class="description">
+                    template
+                </div>
+                <p class="sig">
+                    (Fn [(Array a)] (Vector b a))
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>creates a <code>Vector</code>.</p>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#iota">
+                    <h3 id="iota">
+                        iota
+                    </h3>
+                </a>
+                <div class="description">
+                    defn
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Vector (Size a) b) c)] (Vector (Size a) (Index (Vector (Size a) Opaque) Int)))
+                </p>
+                <pre class="args">
+                    (iota v)
+                </pre>
+                <p class="doc">
+                    
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#last">
+                    <h3 id="last">
+                        last
+                    </h3>
+                </a>
+                <div class="description">
+                    defn
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Vector (Size a) b) c)] b)
+                </p>
+                <pre class="args">
+                    (last v)
+                </pre>
+                <p class="doc">
+                    <pre><code>Returns the last element of a Vector.
+</code></pre>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#lookup">
+                    <h3 id="lookup">
+                        lookup
+                    </h3>
+                </a>
+                <div class="description">
+                    defn
+                </div>
+                <p class="sig">
+                    (Fn [(Vector (Size a) b)] (Fn [(Index (Vector (Size a) Opaque) Int)] b))
+                </p>
+                <pre class="args">
+                    (lookup v)
+                </pre>
+                <p class="doc">
+                    
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#map">
+                    <h3 id="map">
+                        map
+                    </h3>
+                </a>
+                <div class="description">
+                    defn
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Fn [a] b) c), (Ref (Vector (Size d) a) e)] (Vector (Size d) b))
+                </p>
+                <pre class="args">
+                    (map f v)
+                </pre>
+                <p class="doc">
+                    <pre><code> Maps a function `f` over all the elements of a Vector and returns a new
+ Vector containing the results.
+</code></pre>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#nth">
+                    <h3 id="nth">
+                        nth
+                    </h3>
+                </a>
+                <div class="description">
+                    defn
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Vector (Size a) b) c), (Index (Vector (Size a) Opaque) Int)] b)
+                </p>
+                <pre class="args">
+                    (nth v ix)
+                </pre>
+                <p class="doc">
+                    <pre><code>Retrieves the nth element of a Vector using a given `Index`.
+
+The given `Index` must have a `Size` equivalent to the `Vector`'s size in
+its first position (the bound position).
+
+If the `Index`'s Int value exceeds the length of the Vector, this
+function will return the last element of the Vector.
+</code></pre>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#of">
+                    <h3 id="of">
+                        of
+                    </h3>
+                </a>
+                <div class="description">
+                    macro
+                </div>
+                <p class="sig">
+                    Macro
+                </p>
+                <pre class="args">
+                    (of values)
+                </pre>
+                <p class="doc">
+                    <pre><code>Creates a new Vector from the contents of an Array literal.
+</code></pre>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#positions">
+                    <h3 id="positions">
+                        positions
+                    </h3>
+                </a>
+                <div class="description">
+                    defn
+                </div>
+                <p class="sig">
+                    (Fn [] (Vector (Size a) (Index (Vector (Size a) Opaque) Int)))
+                </p>
+                <pre class="args">
+                    (positions)
+                </pre>
+                <p class="doc">
+                    
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#prn">
+                    <h3 id="prn">
+                        prn
+                    </h3>
+                </a>
+                <div class="description">
+                    template
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Vector a b) c)] String)
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>converts a <code>Vector</code> to a string.</p>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#push">
+                    <h3 id="push">
+                        push
+                    </h3>
+                </a>
+                <div class="description">
+                    defn
+                </div>
+                <p class="sig">
+                    (Fn [a, (Ref (Vector b a) c)] (Vector (Size b) a))
+                </p>
+                <pre class="args">
+                    (push x v)
+                </pre>
+                <p class="doc">
+                    <pre><code>Adds an element to the end of a Vector, returning a new Vector.
+</code></pre>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#ref-eq">
+                    <h3 id="ref-eq">
+                        ref-eq
+                    </h3>
+                </a>
+                <div class="description">
+                    defn
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Vector a b) c), (Ref (Vector a b) d)] Bool)
+                </p>
+                <pre class="args">
+                    (ref-eq vector-a vector-b)
+                </pre>
+                <p class="doc">
+                    
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#str">
+                    <h3 id="str">
+                        str
+                    </h3>
+                </a>
+                <div class="description">
+                    template
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Vector a b) c)] String)
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>converts a <code>Vector</code> to a string.</p>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#tail">
+                    <h3 id="tail">
+                        tail
+                    </h3>
+                </a>
+                <div class="description">
+                    defn
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Vector (Size a) b) c)] (Vector a b))
+                </p>
+                <pre class="args">
+                    (tail v)
+                </pre>
+                <p class="doc">
+                    <pre><code>Returns all but the first element of a Vector as a new Vector.
+</code></pre>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#to-array">
+                    <h3 id="to-array">
+                        to-array
+                    </h3>
+                </a>
+                <div class="description">
+                    defn
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Vector a b) c)] (Array b))
+                </p>
+                <pre class="args">
+                    (to-array v)
+                </pre>
+                <p class="doc">
+                    <pre><code>Converts a Vector to an Array.
+</code></pre>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#zip">
+                    <h3 id="zip">
+                        zip
+                    </h3>
+                </a>
+                <div class="description">
+                    defn
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Fn [a, b] c) d), (Ref (Vector e a) f), (Ref (Vector e b) g)] (Vector e c))
+                </p>
+                <pre class="args">
+                    (zip f v v1)
+                </pre>
+                <p class="doc">
+                    <pre><code>Combines two Vectors using a binary function `f`.
+</code></pre>
+
+                </p>
+            </div>
+        </div>
+    </body>
+</html>

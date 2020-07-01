@@ -1,0 +1,238 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <link rel="stylesheet" href="docs.css">
+    </head>
+    <body>
+        <div class="content">
+            <div class="logo">
+                <a href="http://github.com/carp-lang/Carp">
+                    <img src="logo.png">
+                </a>
+                <div class="title">
+                    dimensions
+                </div>
+                <div class="index">
+                    <ul>
+                        <li>
+                            <a href="Index.html">
+                                Index
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Size.html">
+                                Size
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Vector.html">
+                                Vector
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Dimensional.html">
+                                Dimensional
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <h1>
+                Size
+            </h1>
+            <div class="module-description">
+                <p>The type of things with some fixed size.</p>
+<p>Sizes larger than <a href="#zero">Zero</a> are represented by nested applications of
+Size.</p>
+<p>For example, things of size 2 are typed: <code>(Size (Size Zero))</code></p>
+<p>Functions that rely on information about the size or length of a structure
+are implemented in terms of <code>Size</code> and <code>Zero</code>.</p>
+
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#copy">
+                    <h3 id="copy">
+                        copy
+                    </h3>
+                </a>
+                <div class="description">
+                    template
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Size a) b)] (Size a))
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>copies a <code>(Size s)</code>.</p>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#delete">
+                    <h3 id="delete">
+                        delete
+                    </h3>
+                </a>
+                <div class="description">
+                    template
+                </div>
+                <p class="sig">
+                    (Fn [(Size a)] ())
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>deletes a <code>(Size s)</code>. Should usually not be called manually.</p>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#empty?">
+                    <h3 id="empty?">
+                        empty?
+                    </h3>
+                </a>
+                <div class="description">
+                    defn
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Vector (Size a) b) c)] Bool)
+                </p>
+                <pre class="args">
+                    (empty? v)
+                </pre>
+                <p class="doc">
+                    
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#get-tag">
+                    <h3 id="get-tag">
+                        get-tag
+                    </h3>
+                </a>
+                <div class="description">
+                    instantiate
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Size a) b)] Int)
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>Gets the tag from a <code>Size</code>.</p>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#len">
+                    <h3 id="len">
+                        len
+                    </h3>
+                </a>
+                <div class="description">
+                    defn
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Vector (Size a) b) c)] Int)
+                </p>
+                <pre class="args">
+                    (len v)
+                </pre>
+                <p class="doc">
+                    
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#prn">
+                    <h3 id="prn">
+                        prn
+                    </h3>
+                </a>
+                <div class="description">
+                    template
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Size a) b)] String)
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>stringifies a <code>&quot;Size&quot;</code>.</p>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#replicate">
+                    <h3 id="replicate">
+                        replicate
+                    </h3>
+                </a>
+                <div class="description">
+                    defn
+                </div>
+                <p class="sig">
+                    (Fn [a] (Vector (Size b) a))
+                </p>
+                <pre class="args">
+                    (replicate x)
+                </pre>
+                <p class="doc">
+                    
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#size">
+                    <h3 id="size">
+                        size
+                    </h3>
+                </a>
+                <div class="description">
+                    macro
+                </div>
+                <p class="sig">
+                    Macro
+                </p>
+                <pre class="args">
+                    (size n)
+                </pre>
+                <p class="doc">
+                    <pre><code>Size types can be quite a pain to type out in full, as the rely on significant nesting.
+
+The size macro generates an appropriate Size based on an integer value, and
+may be used to generate a size type in functions signatures and macros.
+</code></pre>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#str">
+                    <h3 id="str">
+                        str
+                    </h3>
+                </a>
+                <div class="description">
+                    template
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Size a) b)] String)
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>stringifies a <code>&quot;Size&quot;</code>.</p>
+
+                </p>
+            </div>
+        </div>
+    </body>
+</html>
