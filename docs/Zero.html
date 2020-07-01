@@ -46,15 +46,10 @@
                 </div>
             </div>
             <h1>
-                Size
+                Zero
             </h1>
             <div class="module-description">
-                <p>The type of things with some fixed size.</p>
-<p>Sizes larger than <a href="#zero">Zero</a> are represented by nested applications of
-Size.</p>
-<p>For example, things of size 2 are typed: <code>(Size (Size Zero))</code></p>
-<p>Functions that rely on information about the size or length of a structure
-are implemented in terms of <code>Size</code> and <code>Zero</code>.</p>
+                <p>The type of things with zero size.</p>
 
             </div>
             <div class="binder">
@@ -64,16 +59,16 @@ are implemented in terms of <code>Size</code> and <code>Zero</code>.</p>
                     </h3>
                 </a>
                 <div class="description">
-                    template
+                    instantiate
                 </div>
                 <p class="sig">
-                    (Fn [(Ref (Size a) b)] (Size a))
+                    (Fn [(Ref Zero a)] Zero)
                 </p>
                 <span>
                     
                 </span>
                 <p class="doc">
-                    <p>copies a <code>(Size s)</code>.</p>
+                    <p>copies a <code>Zero</code>.</p>
 
                 </p>
             </div>
@@ -84,16 +79,16 @@ are implemented in terms of <code>Size</code> and <code>Zero</code>.</p>
                     </h3>
                 </a>
                 <div class="description">
-                    template
+                    instantiate
                 </div>
                 <p class="sig">
-                    (Fn [(Size a)] ())
+                    (Fn [Zero] ())
                 </p>
                 <span>
                     
                 </span>
                 <p class="doc">
-                    <p>deletes a <code>(Size s)</code>. Should usually not be called manually.</p>
+                    <p>deletes a <code>Zero</code>. This should usually not be called manually.</p>
 
                 </p>
             </div>
@@ -107,7 +102,7 @@ are implemented in terms of <code>Size</code> and <code>Zero</code>.</p>
                     defn
                 </div>
                 <p class="sig">
-                    (Fn [(Ref (Vector (Size a) b) c)] Bool)
+                    (Fn [(Ref (Vector Zero a) b)] Bool)
                 </p>
                 <pre class="args">
                     (empty? v)
@@ -126,13 +121,13 @@ are implemented in terms of <code>Size</code> and <code>Zero</code>.</p>
                     instantiate
                 </div>
                 <p class="sig">
-                    (Fn [(Ref (Size a) b)] Int)
+                    (Fn [(Ref Zero a)] Int)
                 </p>
                 <span>
                     
                 </span>
                 <p class="doc">
-                    <p>Gets the tag from a <code>Size</code>.</p>
+                    <p>Gets the tag from a <code>Zero</code>.</p>
 
                 </p>
             </div>
@@ -146,7 +141,7 @@ are implemented in terms of <code>Size</code> and <code>Zero</code>.</p>
                     defn
                 </div>
                 <p class="sig">
-                    (Fn [(Ref (Vector (Size a) b) c)] Int)
+                    (Fn [(Ref (Vector Zero a) b)] Int)
                 </p>
                 <pre class="args">
                     (len v)
@@ -162,16 +157,16 @@ are implemented in terms of <code>Size</code> and <code>Zero</code>.</p>
                     </h3>
                 </a>
                 <div class="description">
-                    template
+                    instantiate
                 </div>
                 <p class="sig">
-                    (Fn [(Ref (Size a) b)] String)
+                    (Fn [(Ref Zero a)] String)
                 </p>
                 <span>
                     
                 </span>
                 <p class="doc">
-                    <p>stringifies a <code>&quot;Size&quot;</code>.</p>
+                    <p>converts a <code>Zero</code> to a string.</p>
 
                 </p>
             </div>
@@ -185,7 +180,7 @@ are implemented in terms of <code>Size</code> and <code>Zero</code>.</p>
                     defn
                 </div>
                 <p class="sig">
-                    (Fn [a] (Vector (Size b) a))
+                    (Fn [a] (Vector Zero a))
                 </p>
                 <pre class="args">
                     (replicate x)
@@ -195,46 +190,22 @@ are implemented in terms of <code>Size</code> and <code>Zero</code>.</p>
                 </p>
             </div>
             <div class="binder">
-                <a class="anchor" href="#size">
-                    <h3 id="size">
-                        size
-                    </h3>
-                </a>
-                <div class="description">
-                    macro
-                </div>
-                <p class="sig">
-                    Macro
-                </p>
-                <pre class="args">
-                    (size n)
-                </pre>
-                <p class="doc">
-                    <pre><code>Size types can be quite a pain to type out in full, as the rely on significant nesting.
-
-The size macro generates an appropriate Size based on an integer value, and
-may be used to generate a size type in functions signatures and macros.
-</code></pre>
-
-                </p>
-            </div>
-            <div class="binder">
                 <a class="anchor" href="#str">
                     <h3 id="str">
                         str
                     </h3>
                 </a>
                 <div class="description">
-                    template
+                    instantiate
                 </div>
                 <p class="sig">
-                    (Fn [(Ref (Size a) b)] String)
+                    (Fn [(Ref Zero a)] String)
                 </p>
                 <span>
                     
                 </span>
                 <p class="doc">
-                    <p>stringifies a <code>&quot;Size&quot;</code>.</p>
+                    <p>converts a <code>Zero</code> to a string.</p>
 
                 </p>
             </div>
