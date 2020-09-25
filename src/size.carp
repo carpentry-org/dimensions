@@ -43,3 +43,8 @@
   (defn phantom-zero [b]
     0)
 )
+
+;; Generic interfaces for sized types
+(definterface len (Fn [(Ref (f n a))] Int))
+(definterface replicate (Fn [a] (f n a)))
+(definterface empty? (Fn [(Ref (f n a))] Bool))
