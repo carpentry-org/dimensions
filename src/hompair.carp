@@ -1,0 +1,101 @@
+
+(load "src/index.carp")
+(load "Phantom.carp")
+
+(doc Hompair "
+  Hompairs are sized pairs of values of the *same* type.
+
+  Since all Hompairs are pairs of values, their size is fixed; they always have a Size of 2.
+
+  Hompairs implement the [dimensional interfaces](dimensional.html).")
+(deftype (Hompair s a) [first a second a])
+(hidden Hompair.init)
+(private Hompair.init)
+
+(defmodule Hompair
+ (doc of "
+    Constructs a new Hompair from values `x` and `y`.
+
+    ```
+    (Hompair.of 2 4)
+    => (Hompair 2 4)
+    ```")
+  (sig of (Fn [a a] (Hompair (Size.size 2) a)))
+  (defn of [x y]
+    (Hompair.init x y))
+
+  (doc swap "
+    Swaps the position of each value in a Hompair.
+
+    ```
+    (swap &(Hompair.of 1 2))
+    => (Hompair 2 1)
+    ```")
+  (sig swap (Fn [(Ref (Hompair (Size.size 2) a))] (Hompair (Size.size 2) a)))
+  (defn swap [pair]
+    (let [a @(Hompair.first pair)
+          b @(Hompair.second pair)]
+      (Hompair.of b a)))
+
+  (doc nth "
+    Retrieves the nth value from a Hompair using the int value of `index`. 
+    If n is greater than or equal 1, returns the second member of the Hompair.
+
+    ```
+    (nth &(Hompair 1 2) (Index.init 0))
+    => 1
+    ```")
+  (sig nth (Fn [(Ref (Hompair (Size.size 2) a)) (Index (Hompair (Size.size 2) Opaque) Int)] a))
+  (defn nth [pair index]
+    (if (= 0 (to-int &index))
+        @(Hompair.first pair)
+        @(Hompair.second pair)))
+ 
+  (doc zero "
+    Returns a Hompair of the zero values of a given type.")
+  (sig zero (Fn [] (Hompair (Size.size 2) a)))
+  (implements zero zero)
+  (defn zero []
+    (Hompair.of (zero) (zero)))
+
+  (doc replicate "
+    Creates a new Hompair with `x` as both of its members.
+
+    ```
+    (Hompair.replicate 1)
+    => (Hompair 1 1)
+    ```")
+  (sig replicate (Fn [a] (Hompair (Size.size 2) a)))
+  (implements replicate replicate)
+  (defn replicate [x]
+    (Hompair.of x x))
+
+  (doc len "
+    Returns the length of a Hompair.
+ 
+    ```
+    (len (Hompair.of 1 1))
+    => 2
+    ```")
+  (sig len (Fn [(Ref (Hompair (Size.size 2) a))] Int))
+  (implements len len)
+  (defn len [pair] 
+    2)
+ 
+  (doc empty? "
+    Returns false. Hompairs may never be empty by definition.
+  
+    ```
+    (empty? &(Hompair.of 1 1))
+    => false
+    ```")
+  (sig empty? (Fn [(Ref (Hompair (Size.size 2) a))] Bool))
+  (implements empty? empty?)
+  (defn empty? [pair]
+    false)
+  
+  (implements = ref=)
+  (defn ref= [pair other-pair]
+    (and (= @(Hompair.first pair) @(Hompair.first other-pair)) 
+         (= @(Hompair.second pair) @(Hompair.second other-pair))))
+)

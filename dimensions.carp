@@ -1,2 +1,4 @@
 (load-once "src/vector.carp")
 (load-once "impl/vector.carp")
+(load-once "src/hompair.carp")
+(load-once "impl/hompair.carp")

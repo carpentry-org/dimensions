@@ -17,9 +17,9 @@
 (private Vector.update-elements)
 
 ;; TODO: Document these interfaces once Carp supports it.
-(definterface len (Fn [(Ref (Vector n a))] Int))
-(definterface replicate (Fn [a] (Vector n a)))
-(definterface empty? (Fn [(Ref (Vector n a))] Bool))
+;(definterface len (Fn [(Ref (Vector n a))] Int))
+;(definterface replicate (Fn [a] (Vector n a)))
+;(definterface empty? (Fn [(Ref (Vector n a))] Bool))
 
 (defmodule Vector
   (doc push "

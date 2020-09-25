@@ -1,0 +1,37 @@
+(load "src/hompair.carp")
+(load "impl/hompair.carp")
+(load "Test.carp")
+
+(use-all Hompair Test)
+
+(deftest test
+  (assert-equal test
+    &(of 1 2)
+    &(the (Hompair (Size.size 2) Int) (Hompair.init 1 2))
+    "of returns a Hompair of size 2")
+  (assert-equal test
+    2
+    (nth &(Hompair.of 2 4) (Index.init 0))
+    "nth returns the element of a Hompair at a given index")
+  (assert-equal test
+    4
+    (nth &(Hompair.of 2 4) (Index.init 100))
+    "nth returns the last member of a Hompair when an index exceeds the Hompair's length")
+  (assert-equal test
+    &(of 2 4)
+    &(swap &(Hompair.of 4 2))
+    "swap exchanges the positions of Hompair members")
+  (assert-equal test
+    &(of 1 1)
+    &(replicate 1)
+    "replicate creates a Hompair by duplicating a single value")
+  (assert-equal test
+    2
+    (len &(of 1 2))
+    "len returns the length of a Hompair")
+  (assert-equal test
+    false
+    (empty? &(of 1 2))
+    "empty? returns true if a Hompair is empty")
+)
+

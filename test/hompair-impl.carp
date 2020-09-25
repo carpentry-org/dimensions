@@ -1,0 +1,22 @@
+(load "src/hompair.carp")
+(load "src/vector.carp")
+(load "impl/hompair.carp")
+(load "impl/vector.carp")
+(load "Test.carp")
+
+(use-all Hompair Test)
+
+(deftest test
+  (assert-equal test
+    &(of 2 2)
+    &(smap &(fn [x] (+ 1 x)) &(of 1 1))
+    "smap maps a function over a Hompair's members")
+  (assert-equal test
+    2
+    ((lookup (of 2 4)) (Index.init 0))
+    "lookup returns the member at a given index")
+  (assert-equal test
+    &(of (Vector.of [1 1]) (Vector.of [2 2]))
+    &(Dimensional.transpose &(Vector.of [(of 1 2) (of 1 2)]))
+    "transpose swaps the sizes of a Hompair and its container")
+)
