@@ -51,32 +51,13 @@
                 </div>
             </div>
             <h1>
-                Vector
+                Hompair
             </h1>
             <div class="module-description">
-                <p>Vector is an array-like type that supports length/bounds checking at
-type-level. It also implements the <a href="dimensional.html">dimensional interfaces</a>
-and supports generic programming.</p>
+                <p>Hompairs are sized pairs of values of the <em>same</em> type.</p>
+<p>Since all Hompairs are pairs of values, their size is fixed; they always have a Size of 2.</p>
+<p>Hompairs implement the <a href="dimensional.html">dimensional interfaces</a>.</p>
 
-            </div>
-            <div class="binder">
-                <a class="anchor" href="#=">
-                    <h3 id="=">
-                        =
-                    </h3>
-                </a>
-                <div class="description">
-                    defn
-                </div>
-                <p class="sig">
-                    (Fn [(Vector a b), (Vector a b)] Bool)
-                </p>
-                <pre class="args">
-                    (= vector-a vector-b)
-                </pre>
-                <p class="doc">
-                    
-                </p>
             </div>
             <div class="binder">
                 <a class="anchor" href="#copy">
@@ -88,13 +69,13 @@ and supports generic programming.</p>
                     template
                 </div>
                 <p class="sig">
-                    (Fn [(Ref (Vector a b) c)] (Vector a b))
+                    (Fn [(Ref (Hompair a b) c)] (Hompair a b))
                 </p>
                 <span>
                     
                 </span>
                 <p class="doc">
-                    <p>copies the <code>Vector</code>.</p>
+                    <p>copies the <code>Hompair</code>.</p>
 
                 </p>
             </div>
@@ -108,114 +89,84 @@ and supports generic programming.</p>
                     template
                 </div>
                 <p class="sig">
-                    (Fn [(Vector a b)] ())
+                    (Fn [(Hompair a b)] ())
                 </p>
                 <span>
                     
                 </span>
                 <p class="doc">
-                    <p>deletes a <code>Vector</code>. Should usually not be called manually.</p>
+                    <p>deletes a <code>Hompair</code>. Should usually not be called manually.</p>
 
                 </p>
             </div>
             <div class="binder">
-                <a class="anchor" href="#empty">
-                    <h3 id="empty">
-                        empty
+                <a class="anchor" href="#empty?">
+                    <h3 id="empty?">
+                        empty?
                     </h3>
                 </a>
                 <div class="description">
                     defn
                 </div>
                 <p class="sig">
-                    (Fn [] (Vector Zero a))
+                    (Fn [(Ref (Hompair (Size (Size Zero)) a) b)] Bool)
                 </p>
                 <pre class="args">
-                    (empty)
+                    (empty? pair)
                 </pre>
                 <p class="doc">
-                    <pre><code>Returns an empty Vector
+                    <pre><code>Returns false. Hompairs may never be empty by definition.
+
+```
+(empty? &amp;(Hompair.of 1 1))
+=&gt; false
+```
 </code></pre>
 
                 </p>
             </div>
             <div class="binder">
-                <a class="anchor" href="#head">
-                    <h3 id="head">
-                        head
+                <a class="anchor" href="#first">
+                    <h3 id="first">
+                        first
                     </h3>
                 </a>
                 <div class="description">
-                    defn
+                    instantiate
                 </div>
                 <p class="sig">
-                    (Fn [(Ref (Vector (Size a) b) c)] b)
-                </p>
-                <pre class="args">
-                    (head v)
-                </pre>
-                <p class="doc">
-                    <pre><code>Returns the first element of a Vector.
-</code></pre>
-
-                </p>
-            </div>
-            <div class="binder">
-                <a class="anchor" href="#init">
-                    <h3 id="init">
-                        init
-                    </h3>
-                </a>
-                <div class="description">
-                    template
-                </div>
-                <p class="sig">
-                    (Fn [(Array a)] (Vector b a))
+                    (Fn [(Ref (Hompair a b) c)] (Ref b c))
                 </p>
                 <span>
                     
                 </span>
                 <p class="doc">
-                    <p>creates a <code>Vector</code>.</p>
+                    <p>gets the <code>first</code> property of a <code>Hompair</code>.</p>
 
                 </p>
             </div>
             <div class="binder">
-                <a class="anchor" href="#iota">
-                    <h3 id="iota">
-                        iota
+                <a class="anchor" href="#len">
+                    <h3 id="len">
+                        len
                     </h3>
                 </a>
                 <div class="description">
                     defn
                 </div>
                 <p class="sig">
-                    (Fn [(Ref (Vector (Size a) b) c)] (Vector (Size a) (Index (Vector (Size a) Opaque) Int)))
+                    (Fn [(Ref (Hompair (Size (Size Zero)) a) b)] Int)
                 </p>
                 <pre class="args">
-                    (iota v)
+                    (len pair)
                 </pre>
                 <p class="doc">
-                    
-                </p>
-            </div>
-            <div class="binder">
-                <a class="anchor" href="#last">
-                    <h3 id="last">
-                        last
-                    </h3>
-                </a>
-                <div class="description">
-                    defn
-                </div>
-                <p class="sig">
-                    (Fn [(Ref (Vector (Size a) b) c)] b)
-                </p>
-                <pre class="args">
-                    (last v)
-                </pre>
-                <p class="doc">
-                    <pre><code>Returns the last element of a Vector.
+                    <pre><code>Returns the length of a Hompair.
+
+```
+(len (Hompair.of 1 1))
+=&gt; 2
+```
 </code></pre>
 
                 </p>
@@ -230,10 +181,10 @@ and supports generic programming.</p>
                     defn
                 </div>
                 <p class="sig">
-                    (Fn [(Vector (Size a) b)] (Fn [(Index (Vector (Size a) Opaque) Int)] b))
+                    (Fn [(Hompair (Size (Size Zero)) a)] (Fn [(Index (Hompair (Size (Size Zero)) Opaque) Int)] a))
                 </p>
                 <pre class="args">
-                    (lookup v)
+                    (lookup pair)
                 </pre>
                 <p class="doc">
                     
@@ -249,16 +200,13 @@ and supports generic programming.</p>
                     defn
                 </div>
                 <p class="sig">
-                    (Fn [(Ref (Fn [a] b) c), (Ref (Vector (Size d) a) e)] (Vector (Size d) b))
+                    (Fn [(Ref (Fn [a] b) c), (Ref (Hompair (Size (Size Zero)) a) d)] (Hompair (Size (Size Zero)) b))
                 </p>
                 <pre class="args">
-                    (map f v)
+                    (map f pair)
                 </pre>
                 <p class="doc">
-                    <pre><code> Maps a function `f` over all the elements of a Vector and returns a new
- Vector containing the results.
-</code></pre>
-
+                    
                 </p>
             </div>
             <div class="binder">
@@ -271,19 +219,19 @@ and supports generic programming.</p>
                     defn
                 </div>
                 <p class="sig">
-                    (Fn [(Ref (Vector (Size a) b) c), (Index (Vector (Size a) Opaque) Int)] b)
+                    (Fn [(Ref (Hompair (Size (Size Zero)) a) b), (Index (Hompair (Size (Size Zero)) Opaque) Int)] a)
                 </p>
                 <pre class="args">
-                    (nth v ix)
+                    (nth pair index)
                 </pre>
                 <p class="doc">
-                    <pre><code>Retrieves the nth element of a Vector using a given `Index`.
+                    <pre><code>Retrieves the nth value from a Hompair using the int value of `index`. 
+If n is greater than or equal 1, returns the second member of the Hompair.
 
-The given `Index` must have a `Size` equivalent to the `Vector`'s size in
-its first position (the bound position).
-
-If the `Index`'s Int value exceeds the length of the Vector, this
-function will return the last element of the Vector.
+```
+(nth &amp;(Hompair 1 2) (Index.init 0))
+=&gt; 1
+```
 </code></pre>
 
                 </p>
@@ -295,16 +243,21 @@ function will return the last element of the Vector.
                     </h3>
                 </a>
                 <div class="description">
-                    macro
+                    defn
                 </div>
                 <p class="sig">
-                    Macro
+                    (Fn [a, a] (Hompair (Size (Size Zero)) a))
                 </p>
                 <pre class="args">
-                    (of values)
+                    (of x y)
                 </pre>
                 <p class="doc">
-                    <pre><code>Creates a new Vector from the contents of an Array literal.
+                    <pre><code>Constructs a new Hompair from values `x` and `y`.
+
+```
+(Hompair.of 2 4)
+=&gt; (Hompair 2 4)
+```
 </code></pre>
 
                 </p>
@@ -319,7 +272,7 @@ function will return the last element of the Vector.
                     defn
                 </div>
                 <p class="sig">
-                    (Fn [] (Vector (Size a) (Index (Vector (Size a) Opaque) Int)))
+                    (Fn [] (Hompair (Size (Size Zero)) (Index (Hompair (Size (Size Zero)) Opaque) Int)))
                 </p>
                 <pre class="args">
                     (positions)
@@ -338,54 +291,159 @@ function will return the last element of the Vector.
                     template
                 </div>
                 <p class="sig">
-                    (Fn [(Ref (Vector a b) c)] String)
+                    (Fn [(Ref (Hompair a b) c)] String)
                 </p>
                 <span>
                     
                 </span>
                 <p class="doc">
-                    <p>converts a <code>Vector</code> to a string.</p>
+                    <p>converts a <code>Hompair</code> to a string.</p>
 
                 </p>
             </div>
             <div class="binder">
-                <a class="anchor" href="#push">
-                    <h3 id="push">
-                        push
+                <a class="anchor" href="#ref=">
+                    <h3 id="ref=">
+                        ref=
                     </h3>
                 </a>
                 <div class="description">
                     defn
                 </div>
                 <p class="sig">
-                    (Fn [a, (Ref (Vector b a) c)] (Vector (Size b) a))
+                    (Fn [(Ref (Hompair a b) c), (Ref (Hompair d b) e)] Bool)
                 </p>
                 <pre class="args">
-                    (push x v)
+                    (ref= pair other-pair)
                 </pre>
                 <p class="doc">
-                    <pre><code>Adds an element to the end of a Vector, returning a new Vector.
+                    
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#replicate">
+                    <h3 id="replicate">
+                        replicate
+                    </h3>
+                </a>
+                <div class="description">
+                    defn
+                </div>
+                <p class="sig">
+                    (Fn [a] (Hompair (Size (Size Zero)) a))
+                </p>
+                <pre class="args">
+                    (replicate x)
+                </pre>
+                <p class="doc">
+                    <pre><code>Creates a new Hompair with `x` as both of its members.
+
+```
+(Hompair.replicate 1)
+=&gt; (Hompair 1 1)
+```
 </code></pre>
 
                 </p>
             </div>
             <div class="binder">
-                <a class="anchor" href="#ref-eq">
-                    <h3 id="ref-eq">
-                        ref-eq
+                <a class="anchor" href="#second">
+                    <h3 id="second">
+                        second
                     </h3>
                 </a>
                 <div class="description">
-                    defn
+                    instantiate
                 </div>
                 <p class="sig">
-                    (Fn [(Ref (Vector a b) c), (Ref (Vector a b) d)] Bool)
+                    (Fn [(Ref (Hompair a b) c)] (Ref b c))
                 </p>
-                <pre class="args">
-                    (ref-eq vector-a vector-b)
-                </pre>
-                <p class="doc">
+                <span>
                     
+                </span>
+                <p class="doc">
+                    <p>gets the <code>second</code> property of a <code>Hompair</code>.</p>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#set-first">
+                    <h3 id="set-first">
+                        set-first
+                    </h3>
+                </a>
+                <div class="description">
+                    template
+                </div>
+                <p class="sig">
+                    (Fn [(Hompair a b), b] (Hompair a b))
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>sets the <code>first</code> property of a <code>Hompair</code>.</p>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#set-first!">
+                    <h3 id="set-first!">
+                        set-first!
+                    </h3>
+                </a>
+                <div class="description">
+                    template
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Hompair a b) c), b] ())
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>sets the <code>first</code> property of a <code>Hompair</code> in place.</p>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#set-second">
+                    <h3 id="set-second">
+                        set-second
+                    </h3>
+                </a>
+                <div class="description">
+                    template
+                </div>
+                <p class="sig">
+                    (Fn [(Hompair a b), b] (Hompair a b))
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>sets the <code>second</code> property of a <code>Hompair</code>.</p>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#set-second!">
+                    <h3 id="set-second!">
+                        set-second!
+                    </h3>
+                </a>
+                <div class="description">
+                    template
+                </div>
+                <p class="sig">
+                    (Fn [(Ref (Hompair a b) c), b] ())
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>sets the <code>second</code> property of a <code>Hompair</code> in place.</p>
+
                 </p>
             </div>
             <div class="binder">
@@ -398,75 +456,99 @@ function will return the last element of the Vector.
                     template
                 </div>
                 <p class="sig">
-                    (Fn [(Ref (Vector a b) c)] String)
+                    (Fn [(Ref (Hompair a b) c)] String)
                 </p>
                 <span>
                     
                 </span>
                 <p class="doc">
-                    <p>converts a <code>Vector</code> to a string.</p>
+                    <p>converts a <code>Hompair</code> to a string.</p>
 
                 </p>
             </div>
             <div class="binder">
-                <a class="anchor" href="#tail">
-                    <h3 id="tail">
-                        tail
+                <a class="anchor" href="#swap">
+                    <h3 id="swap">
+                        swap
                     </h3>
                 </a>
                 <div class="description">
                     defn
                 </div>
                 <p class="sig">
-                    (Fn [(Ref (Vector (Size a) b) c)] (Vector a b))
+                    (Fn [(Ref (Hompair (Size (Size Zero)) a) b)] (Hompair (Size (Size Zero)) a))
                 </p>
                 <pre class="args">
-                    (tail v)
+                    (swap pair)
                 </pre>
                 <p class="doc">
-                    <pre><code>Returns all but the first element of a Vector as a new Vector.
+                    <pre><code>Swaps the position of each value in a Hompair.
+
+```
+(swap &amp;(Hompair.of 1 2))
+=&gt; (Hompair 2 1)
+```
 </code></pre>
 
                 </p>
             </div>
             <div class="binder">
-                <a class="anchor" href="#to-array">
-                    <h3 id="to-array">
-                        to-array
+                <a class="anchor" href="#update-first">
+                    <h3 id="update-first">
+                        update-first
                     </h3>
                 </a>
                 <div class="description">
-                    defn
+                    instantiate
                 </div>
                 <p class="sig">
-                    (Fn [(Ref (Vector a b) c)] (Array b))
+                    (Fn [(Hompair a b), (Ref (Fn [b] b c) d)] (Hompair a b))
                 </p>
-                <pre class="args">
-                    (to-array v)
-                </pre>
+                <span>
+                    
+                </span>
                 <p class="doc">
-                    <pre><code>Converts a Vector to an Array.
-</code></pre>
+                    <p>updates the <code>first</code> property of a <code>Hompair</code> using a function <code>f</code>.</p>
 
                 </p>
             </div>
             <div class="binder">
-                <a class="anchor" href="#zip">
-                    <h3 id="zip">
-                        zip
+                <a class="anchor" href="#update-second">
+                    <h3 id="update-second">
+                        update-second
+                    </h3>
+                </a>
+                <div class="description">
+                    instantiate
+                </div>
+                <p class="sig">
+                    (Fn [(Hompair a b), (Ref (Fn [b] b c) d)] (Hompair a b))
+                </p>
+                <span>
+                    
+                </span>
+                <p class="doc">
+                    <p>updates the <code>second</code> property of a <code>Hompair</code> using a function <code>f</code>.</p>
+
+                </p>
+            </div>
+            <div class="binder">
+                <a class="anchor" href="#zero">
+                    <h3 id="zero">
+                        zero
                     </h3>
                 </a>
                 <div class="description">
                     defn
                 </div>
                 <p class="sig">
-                    (Fn [(Ref (Fn [a, b] c) d), (Ref (Vector e a) f), (Ref (Vector e b) g)] (Vector e c))
+                    (Fn [] (Hompair (Size (Size Zero)) a))
                 </p>
                 <pre class="args">
-                    (zip f v v1)
+                    (zero)
                 </pre>
                 <p class="doc">
-                    <pre><code>Combines two Vectors using a binary function `f`.
+                    <pre><code>Returns a Hompair of the zero values of a given type.
 </code></pre>
 
                 </p>

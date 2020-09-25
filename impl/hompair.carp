@@ -1,0 +1,24 @@
+(load "src/dimensional.carp")
+(load "src/hompair.carp")
+
+(defmodule Hompair
+  (implements positions positions)
+  (sig positions (Fn [] (Hompair (Size.size 2) (Index (Hompair (Size.size 2) Opaque) Int))))
+  (defn positions []
+    (let [first (Index.init 0)
+          second (Index.init 1)]
+      (Hompair.init first second)))
+
+  (implements lookup lookup)
+  (sig lookup (Fn [(Hompair (Size.size 2) a)] (Fn [(Index (Hompair (Size.size 2) Opaque) Int)] a)))
+  (defn lookup [pair]
+    (fn [i]
+      (Hompair.nth &pair i)))
+  
+  (sig map (Fn [(Ref (Fn [a] b)) (Ref (Hompair (Size.size 2) a))] (Hompair (Size.size 2) b)))
+  (implements smap map)
+  (defn map [f pair]
+    (let [first (~f @(Hompair.first pair))
+          second (~f @(Hompair.second pair))]
+      (Hompair.init first second)))
+)
