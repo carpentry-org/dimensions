@@ -10,7 +10,7 @@
   "The dimensions library defines types and functions for working with *sized
   containers*. A sized container contains its size as part of its type
   signature, much as one might encounter in dependently typed programming
-  langauges.")
+  languages.")
 (Project.config "docs-generate-index" true)
 (Project.config "docs-logo" "dimensions-logo.svg")
 
