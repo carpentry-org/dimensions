@@ -2,10 +2,10 @@
 (load "src/index.carp")
 (load "Phantom.carp")
 
-(doc Vector "
-  Vector is an array-like type that supports length/bounds checking at
-  type-level. It also implements the [dimensional interfaces](dimensional.html)
-  and supports generic programming.")
+(doc Vector
+  "Vector is an array-like type that supports length/bounds checking at"
+  "type-level. It also implements the [dimensional interfaces](dimensional.html)"
+  "and supports generic programming.")
 (deftype (Vector s a) [elements (Array a)])
 (hidden Vector.elements)
 (private Vector.elements)
@@ -22,33 +22,33 @@
 ;(definterface empty? (Fn [(Ref (Vector n a))] Bool))
 
 (defmodule Vector
-  (doc push "
-    Adds an element to the end of a Vector, returning a new Vector.")
+  (doc push
+    "Adds an element to the end of a Vector, returning a new Vector.")
   (sig push (Fn [a (Ref (Vector n a))] (Vector (Size n) a)))
   (defn push [x v]
     (Vector.init (Array.push-back @(Vector.elements v) x)))
 
-  (doc tail "
-    Returns all but the first element of a Vector as a new Vector.")
+  (doc tail
+    "Returns all but the first element of a Vector as a new Vector.")
   (sig tail (Fn [(Ref (Vector (Size n) a))] (Vector n a)))
   (defn tail [v]
     (Vector.init (Array.suffix (Vector.elements v) 1)))
 
-  (doc empty "
-    Returns an empty Vector")
+  (doc empty
+    "Returns an empty Vector")
   (implements zero empty)
   (sig empty (Fn [] (Vector Zero a)))
   (defn empty []
     (Vector.init []))
 
-  (doc to-array "
-    Converts a Vector to an Array.")
+  (doc to-array
+    "Converts a Vector to an Array.")
   (sig to-array (Fn [(Ref (Vector n a))] (Array a)))
   (defn to-array [v]
     @(Vector.elements v))
 
-  (doc zip "
-    Combines two Vectors using a binary function `f`.")
+  (doc zip
+    "Combines two Vectors using a binary function `f`.")
   (sig zip (Fn [(Ref (Fn [a b] c)) (Ref (Vector n a)) (Ref (Vector n b))] (Vector n c)))
   (defn zip [f v v1]
     (let [copy-then-apply (fn [a b] (~f @a @b))
@@ -56,26 +56,26 @@
           arr1 (Vector.elements v1)]
       (Vector.init (Array.zip &copy-then-apply arr arr1))))
 
-  (doc nth "
-    Retrieves the nth element of a Vector using a given `Index`.
-
-    The given `Index` must have a `Size` equivalent to the `Vector`'s size in
-    its first position (the bound position).
-
-    If the `Index`'s Int value exceeds the length of the Vector, this
-    function will return the last element of the Vector.")
+  (doc nth
+    "Retrieves the nth element of a Vector using a given `Index`."
+    ""
+    "The given `Index` must have a `Size` equivalent to the `Vector`'s size in"
+    "its first position (the bound position)."
+    ""
+    "If the `Index`'s Int value exceeds the length of the Vector, this"
+    "function will return the last element of the Vector.")
   (sig nth (Fn [(Ref (Vector (Size n) a)) (Index (Vector (Size n) Opaque) Int)] a))
   (defn nth [v ix]
     @(Array.unsafe-nth (Vector.elements v) (to-int &ix)))
 
-  (doc last "
-    Returns the last element of a Vector.")
+  (doc last
+    "Returns the last element of a Vector.")
   (sig last (Fn [(Ref (Vector (Size n) a))] a))
   (defn last [v]
     @(Array.unsafe-nth (Vector.elements v) (to-int (the (Phantom n) (Phantom.init)))))
 
-  (doc head "
-    Returns the first element of a Vector.")
+  (doc head
+    "Returns the first element of a Vector.")
   (sig head (Fn [(Ref (Vector (Size n) a))] a))
   (defn head [v]
     @(Array.unsafe-nth (Vector.elements v) (to-int (the (Phantom Zero) (Phantom.init)))))
@@ -86,8 +86,8 @@
         acc
         (Vector.gen-vec (cdr vs) (cons-last (list 'Vector.push (car vs)) (cons-last '(ref) acc)))))
 
-  (doc of "
-    Creates a new Vector from the contents of an Array literal.")
+  (doc of
+    "Creates a new Vector from the contents of an Array literal.")
   (defmacro of [values]
     (if (= 0 (length values))
         (list 'Vector.empty)

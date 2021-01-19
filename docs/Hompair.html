@@ -115,12 +115,9 @@
                     (empty? pair)
                 </pre>
                 <p class="doc">
-                    <pre><code>Returns false. Hompairs may never be empty by definition.
-
-```
-(empty? &amp;(Hompair.of 1 1))
+                    <p>Returns false. Hompairs may never be empty by definition.</p>
+<pre><code>(empty? &amp;(Hompair.of 1 1))
 =&gt; false
-```
 </code></pre>
 
                 </p>
@@ -161,12 +158,9 @@
                     (len pair)
                 </pre>
                 <p class="doc">
-                    <pre><code>Returns the length of a Hompair.
-
-```
-(len (Hompair.of 1 1))
+                    <p>Returns the length of a Hompair.</p>
+<pre><code>(len (Hompair.of 1 1))
 =&gt; 2
-```
 </code></pre>
 
                 </p>
@@ -225,13 +219,10 @@
                     (nth pair index)
                 </pre>
                 <p class="doc">
-                    <pre><code>Retrieves the nth value from a Hompair using the int value of `index`. 
-If n is greater than or equal 1, returns the second member of the Hompair.
-
-```
-(nth &amp;(Hompair 1 2) (Index.init 0))
+                    <p>Retrieves the nth value from a Hompair using the int value of <code>index</code>.
+If n is greater than or equal 1, returns the second member of the Hompair.</p>
+<pre><code>(nth &amp;(Hompair 1 2) (Index.init 0))
 =&gt; 1
-```
 </code></pre>
 
                 </p>
@@ -252,12 +243,9 @@ If n is greater than or equal 1, returns the second member of the Hompair.
                     (of x y)
                 </pre>
                 <p class="doc">
-                    <pre><code>Constructs a new Hompair from values `x` and `y`.
-
-```
-(Hompair.of 2 4)
+                    <p>Constructs a new Hompair from values <code>x</code> and <code>y</code>.</p>
+<pre><code>(Hompair.of 2 4)
 =&gt; (Hompair 2 4)
-```
 </code></pre>
 
                 </p>
@@ -336,12 +324,9 @@ If n is greater than or equal 1, returns the second member of the Hompair.
                     (replicate x)
                 </pre>
                 <p class="doc">
-                    <pre><code>Creates a new Hompair with `x` as both of its members.
-
-```
-(Hompair.replicate 1)
+                    <p>Creates a new Hompair with <code>x</code> as both of its members.</p>
+<pre><code>(Hompair.replicate 1)
 =&gt; (Hompair 1 1)
-```
 </code></pre>
 
                 </p>
@@ -482,12 +467,9 @@ If n is greater than or equal 1, returns the second member of the Hompair.
                     (swap pair)
                 </pre>
                 <p class="doc">
-                    <pre><code>Swaps the position of each value in a Hompair.
-
-```
-(swap &amp;(Hompair.of 1 2))
+                    <p>Swaps the position of each value in a Hompair.</p>
+<pre><code>(swap &amp;(Hompair.of 1 2))
 =&gt; (Hompair 2 1)
-```
 </code></pre>
 
                 </p>
@@ -548,8 +530,7 @@ If n is greater than or equal 1, returns the second member of the Hompair.
                     (zero)
                 </pre>
                 <p class="doc">
-                    <pre><code>Returns a Hompair of the zero values of a given type.
-</code></pre>
+                    <p>Returns a Hompair of the zero values of a given type.</p>
 
                 </p>
             </div>

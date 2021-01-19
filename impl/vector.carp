@@ -20,9 +20,9 @@
     (fn [i]
       (Vector.nth &v i)))
 
-   (doc map "
-     Maps a function `f` over all the elements of a Vector and returns a new
-     Vector containing the results.")
+   (doc map
+     "Maps a function `f` over all the elements of a Vector and returns a new "
+     "Vector containing the results.")
    (implements smap map)
    (sig map (Fn [(Ref (Fn [a] b)) (Ref (Vector (Size n) a))] (Vector (Size n) b)))
    (defn map [f v]
