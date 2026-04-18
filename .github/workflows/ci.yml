@@ -23,6 +23,3 @@ jobs:
         run: |
           set -euo pipefail
           bash ./test-all.sh
-
-      - name: Generate docs
-        run: carp -x gendocs.carp
