@@ -1,7 +1,6 @@
 (load "Phantom.carp")
 
-(doc Zero
-  "The type of things with zero size.")
+(doc Zero "The type of things with zero size.")
 (deftype Zero)
 
 (doc Size
@@ -19,30 +18,23 @@
 (defmodule Size
   (hidden gen-size)
   (defndynamic gen-size [n acc]
-    (if (or (< n 0) (= n 0))
-        acc
-        (Size.gen-size (- n 1) (cons-last acc '(Size)))))
+    (if (or (< n 0) (= n 0)) acc (Size.gen-size (- n 1) (cons-last acc '(Size)))))
 
   (doc size
     "Size types can be quite a pain to type out in full, as the rely on significant nesting."
     ""
     "The size macro generates an appropriate Size based on an integer value, and"
     "may be used to generate a size type in functions signatures and macros.")
-  (defmacro size [n]
-    (Size.gen-size (- n 1) '(Size Zero)))
-)
+  (defmacro size [n] (Size.gen-size (- n 1) '(Size Zero))))
 
 (defmodule Phantom
   (sig phantom-size (Fn [(Phantom (Size n))] Int))
   (implements to-int phantom-size)
-  (defn phantom-size [p]
-    (+ 1 (to-int (the (Phantom n) (Phantom.init)))))
+  (defn phantom-size [p] (+ 1 (to-int (the (Phantom n) (Phantom.init)))))
 
   (sig phantom-zero (Fn [(Phantom Zero)] Int))
   (implements to-int phantom-zero)
-  (defn phantom-zero [b]
-    0)
-)
+  (defn phantom-zero [b] 0))
 
 ;; Generic interfaces for sized types
 (definterface len (Fn [(Ref (f n a))] Int))

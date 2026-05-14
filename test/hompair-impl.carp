@@ -18,5 +18,4 @@
   (assert-equal test
     &(of (Vector.of [1 1]) (Vector.of [2 2]))
     &(Dimensional.transpose &(Vector.of [(of 1 2) (of 1 2)]))
-    "transpose swaps the sizes of a Hompair and its container")
-)
+    "transpose swaps the sizes of a Hompair and its container"))

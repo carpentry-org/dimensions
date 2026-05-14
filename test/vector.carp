@@ -17,7 +17,7 @@
     &(Vector.of [2 3])
     &(tail &(Vector.of [1 2 3]))
     "tail returns the all but the first element of the vector")
-  (assert-equal test 
+  (assert-equal test
     &(the (Vector Zero Int) (Vector.empty))
     &(the (Vector Zero Int) (Vector.of []))
     "empty returns an empty Vector")
@@ -26,11 +26,11 @@
     &(to-array &(Vector.of [1 2 3]))
     "to-array returns an array containing the elements of a Vector")
   (assert-equal test
-    2 
+    2
     (nth &(Vector.of [1 2 3]) (Index.init 1))
     "nth returns the element of a Vector at a given index")
   (assert-equal test
-    3 
+    3
     (nth &(Vector.of [1 2 3]) (Index.init 100))
     "nth returns the last element of a Vector if an index exceeds the Vector's
     length")
@@ -57,5 +57,4 @@
   (assert-equal test
     true
     (empty? &(the (Vector Zero Int) (Vector.empty)))
-    "empty? returns true if a Vector is empty")
-)
+    "empty? returns true if a Vector is empty"))

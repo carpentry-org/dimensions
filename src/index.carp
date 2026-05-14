@@ -18,8 +18,4 @@
   (defn index-to-int [ix]
     (let [bound (to-int (the (Phantom m) (Phantom.init)))
           value @(Index.at ix)]
-      (if (< bound value)
-          bound
-          value)))
-)
-
+      (if (< bound value) bound value))))

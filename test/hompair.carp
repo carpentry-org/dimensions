@@ -25,13 +25,8 @@
     &(of 1 1)
     &(replicate 1)
     "replicate creates a Hompair by duplicating a single value")
-  (assert-equal test
-    2
-    (len &(of 1 2))
-    "len returns the length of a Hompair")
+  (assert-equal test 2 (len &(of 1 2)) "len returns the length of a Hompair")
   (assert-equal test
     false
     (empty? &(of 1 2))
-    "empty? returns true if a Hompair is empty")
-)
-
+    "empty? returns true if a Hompair is empty"))
