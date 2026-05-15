@@ -8,7 +8,7 @@
   ""
   "Hompairs implement the [dimensional interfaces](dimensional.html).")
 (deftype (Hompair s a) [first a
-                        second a])
+    second a])
 (hidden Hompair.init)
 (private Hompair.init)
 
@@ -43,13 +43,11 @@
     "(nth &(Hompair 1 2) (Index.init 0))"
     "=> 1"
     "```")
-  (sig
-    nth
-    (Fn
-      [
-        (Ref (Hompair (Size.size 2) a))
-        (Index (Hompair (Size.size 2) Opaque) Int)]
-      a))
+  (sig nth
+       (Fn [
+             (Ref (Hompair (Size.size 2) a))
+             (Index (Hompair (Size.size 2) Opaque) Int)]
+           a))
   (defn nth [pair index]
     (if (= 0 (to-int &index)) @(Hompair.first pair) @(Hompair.second pair)))
 
@@ -93,6 +91,5 @@
 
   (implements = ref=)
   (defn ref= [pair other-pair]
-    (and
-      (= @(Hompair.first pair) @(Hompair.first other-pair))
-      (= @(Hompair.second pair) @(Hompair.second other-pair)))))
+    (and (= @(Hompair.first pair) @(Hompair.first other-pair))
+         (= @(Hompair.second pair) @(Hompair.second other-pair)))))

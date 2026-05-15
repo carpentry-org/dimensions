@@ -27,7 +27,6 @@
     "transpose will return a Vector of size 2 of Vectors of size 3:"
     ""
     "`(Vector [(Vector [1 3 5]) (Vector [2 4 6])])`")
-  (sig
-    transpose
-    (Fn [(Ref (f (Size n) (g (Size m) a)))] (g (Size m) (f (Size n) a))))
+  (sig transpose
+       (Fn [(Ref (f (Size n) (g (Size m) a)))] (g (Size m) (f (Size n) a))))
   (defn transpose [f] (tabulate &(fn [i] (smap &(fn [x] ((lookup x) i)) f)))))

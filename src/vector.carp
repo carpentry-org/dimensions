@@ -39,9 +39,9 @@
   (defn to-array [v] @(Vector.elements v))
 
   (doc zip "Combines two Vectors using a binary function `f`.")
-  (sig
-    zip
-    (Fn [(Ref (Fn [a b] c)) (Ref (Vector n a)) (Ref (Vector n b))] (Vector n c)))
+  (sig zip
+       (Fn [(Ref (Fn [a b] c)) (Ref (Vector n a)) (Ref (Vector n b))]
+           (Vector n c)))
   (defn zip [f v v1]
     (let [copy-then-apply (fn [a b] (~f @a @b))
           arr (Vector.elements v)
@@ -56,31 +56,27 @@
     ""
     "If the `Index`'s Int value exceeds the length of the Vector, this"
     "function will return the last element of the Vector.")
-  (sig
-    nth
-    (Fn [(Ref (Vector (Size n) a)) (Index (Vector (Size n) Opaque) Int)] a))
+  (sig nth
+       (Fn [(Ref (Vector (Size n) a)) (Index (Vector (Size n) Opaque) Int)] a))
   (defn nth [v ix] @(Array.unsafe-nth (Vector.elements v) (to-int &ix)))
 
   (doc last "Returns the last element of a Vector.")
   (sig last (Fn [(Ref (Vector (Size n) a))] a))
   (defn last [v]
-    @(Array.unsafe-nth
-      (Vector.elements v)
+    @(Array.unsafe-nth (Vector.elements v)
       (to-int (the (Phantom n) (Phantom.init)))))
 
   (doc head "Returns the first element of a Vector.")
   (sig head (Fn [(Ref (Vector (Size n) a))] a))
   (defn head [v]
-    @(Array.unsafe-nth
-      (Vector.elements v)
+    @(Array.unsafe-nth (Vector.elements v)
       (to-int (the (Phantom Zero) (Phantom.init)))))
 
   (hidden gen-vec)
   (defndynamic gen-vec [vs acc]
     (if (= 0 (length vs))
       acc
-      (Vector.gen-vec
-        (cdr vs)
+      (Vector.gen-vec (cdr vs)
         (cons-last (list 'Vector.push (car vs)) (cons-last '(ref) acc)))))
 
   (doc of "Creates a new Vector from the contents of an Array literal.")
