@@ -17,8 +17,9 @@
   (defn lookup [pair] (fn [i] (Hompair.nth &pair i)))
 
   (sig map
-       (Fn [(Ref (Fn [a] b)) (Ref (Hompair (Size.size 2) a))]
-           (Hompair (Size.size 2) b)))
+       (Fn
+         [(Ref (Fn [a] b)) (Ref (Hompair (Size.size 2) a))]
+         (Hompair (Size.size 2) b)))
   (implements smap map)
   (defn map [f pair]
     (let [first (~f @(Hompair.first pair))

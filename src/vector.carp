@@ -40,8 +40,9 @@
 
   (doc zip "Combines two Vectors using a binary function `f`.")
   (sig zip
-       (Fn [(Ref (Fn [a b] c)) (Ref (Vector n a)) (Ref (Vector n b))]
-           (Vector n c)))
+       (Fn
+         [(Ref (Fn [a b] c)) (Ref (Vector n a)) (Ref (Vector n b))]
+         (Vector n c)))
   (defn zip [f v v1]
     (let [copy-then-apply (fn [a b] (~f @a @b))
           arr (Vector.elements v)
@@ -64,20 +65,21 @@
   (sig last (Fn [(Ref (Vector (Size n) a))] a))
   (defn last [v]
     @(Array.unsafe-nth (Vector.elements v)
-      (to-int (the (Phantom n) (Phantom.init)))))
+                       (to-int (the (Phantom n) (Phantom.init)))))
 
   (doc head "Returns the first element of a Vector.")
   (sig head (Fn [(Ref (Vector (Size n) a))] a))
   (defn head [v]
     @(Array.unsafe-nth (Vector.elements v)
-      (to-int (the (Phantom Zero) (Phantom.init)))))
+                       (to-int (the (Phantom Zero) (Phantom.init)))))
 
   (hidden gen-vec)
   (defndynamic gen-vec [vs acc]
     (if (= 0 (length vs))
       acc
       (Vector.gen-vec (cdr vs)
-        (cons-last (list 'Vector.push (car vs)) (cons-last '(ref) acc)))))
+                      (cons-last (list 'Vector.push (car vs))
+                                 (cons-last '(ref) acc)))))
 
   (doc of "Creates a new Vector from the contents of an Array literal.")
   (defmacro of [values]
