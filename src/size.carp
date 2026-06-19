@@ -36,6 +36,5 @@
   (implements to-int phantom-zero)
   (defn phantom-zero [b] 0))
 
-;; Generic interfaces for sized types
 (definterface len (Fn [(Ref (f n a))] Int))
 (definterface replicate (Fn [a] (f n a)))

@@ -1,6 +1,5 @@
 (load "src/index.carp")
 
-;; TODO: Document these interfaces once Carp supports it.
 (definterface lookup (Fn [(f s a)] (Fn [(Index (f s Opaque) Int)] a)))
 (definterface positions (Fn [] (f (Size n) (Index (f (Size n) Opaque) Int))))
 (definterface smap (Fn [(Ref (Fn [a] b)) (Ref (f s a))] (f s b)))
