@@ -1,5 +1,3 @@
-;; Generate documentation for the Dimensions library
-
 (load "dimensions.carp")
 
 (Project.config "title" "dimensions")
